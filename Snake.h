@@ -1,19 +1,19 @@
 #ifndef __SNAKE_H__
 #define __SNAKE_H__
 
-// 坐标
+// Coordinate
 struct Position {
 	int x;
 	int y;
 };
 
-// 链表结点
+// Linked list node
 struct Node {
 	struct Position position;
 	struct Node *pNext;
 };
 
-// 蛇朝向
+// Snake direction
 enum Direction {
 	UP,
 	DOWN,
@@ -21,27 +21,27 @@ enum Direction {
 	RIGHT
 };
 
-// 蛇结构体
+// Snake structure
 struct Snake {
 	enum Direction direction;
 	struct Node *pBody;
 };
 
-// 游戏结构体
+// Game structure
 struct Game {
-	int width;	// 游戏宽度（不包括墙）
-	int height;	// 游戏高度（不包括墙）
-	int score;	// 当前得分
-	int scorePerFood;	// 每个食物得分
+	int width;	       // Game width
+	int height;	       // Game height
+	int score;	       // Current score
+	int scorePerFood;  // Score per food
 
-	struct Snake snake;	// 蛇
-	struct Position foodPosition;	// 当前食物坐标
+	struct Snake snake;	            // Snake
+	struct Position foodPosition;	// Current food coordinates
 };
 
 enum ExitStatus {
-	QUIT,	// 正常退出
-	KILLED_BY_WALL,	// 撞墙了
-	KILLED_BY_SELF	// 撞自己了
+	QUIT,	         // Normal exit
+	KILLED_BY_WALL,	 // Hit the wall
+	KILLED_BY_SELF	 // Hit yourself
 };
 
 #endif

@@ -5,42 +5,27 @@
 #include <Windows.h>
 
 
-// 初始化蛇结构体
-static void _InitializeSnake(struct Snake *pSnake);
-// 判断食物坐标是否和蛇有重叠
-static bool _IsOverlapSnake(int x, int y, const struct Snake *pSnake);
-// 生成一个食物
-static void _GenerateFood(struct Game *pGame);
-// 获取蛇即将进入的坐标
-static struct Position _GetNextPosition(const struct Snake *pSnake);
-// 判断蛇是否将吃到食物
-static bool _IsWillEatFood(struct Position nextPosition, struct Position foodPosition);
-// 增长蛇并且进行显示
-static void _GrowSnakeAndDisplay(struct Snake *pSnake, struct Position foodPosition, const struct UI *pUI);
-// 增长蛇头
-static void _AddHead(struct Snake *pSnake, struct Position nextPosition, const struct UI *pUI);
-// 删除蛇尾
-static void _RemoveTail(struct Snake *pSnake, const struct UI *pUI);
-// 移动蛇并且进行显示
-static void _MoveSnakeAndDisplay(struct Snake *pSnake, struct Position nextPosition, const struct UI *pUI);
-// 蛇是否撞墙了
-static bool _IsKilledByWall(const struct Node *pHead, int width, int height);
-// 蛇是否撞自己了
-static bool _IsKilledBySelf(const struct Node *pHead, const struct Snake *pSnake);
-// 蛇是否存活
-static bool _IsSnakeAlive(const struct Game *pGame, enum ExitStatus *exitStatus);
-// 处理方向指令
-static void _HandleDirective(struct Game *pGame);
-// 显示完整的蛇
-static void _DisplaySnake(const struct UI *pUI, const struct Snake *pSnake);
-// 暂停
-static void _Pause();
+static void _InitializeSnake(struct Snake *pSnake);                                                        // Initialize snake structure
+static bool _IsOverlapSnake(int x, int y, const struct Snake *pSnake);                                     // Determine if the food coordinates overlap with the snake
+static void _GenerateFood(struct Game *pGame);                                                             // Produce a food
+static struct Position _GetNextPosition(const struct Snake *pSnake);                                       // Gets the coordinates the snake is about to enter
+static bool _IsWillEatFood(struct Position nextPosition, struct Position foodPosition);                    // To determine whether a snake will eat food
+static void _GrowSnakeAndDisplay(struct Snake *pSnake, struct Position foodPosition, const struct UI *pUI);// Grow snakes and display them
+static void _AddHead(struct Snake *pSnake, struct Position nextPosition, const struct UI *pUI);            // Growth snakehead
+static void _RemoveTail(struct Snake *pSnake, const struct UI *pUI);                                       // Delete snake tail
+static void _MoveSnakeAndDisplay(struct Snake *pSnake, struct Position nextPosition, const struct UI *pUI);// Move the snake and display it
+static bool _IsKilledByWall(const struct Node *pHead, int width, int height);                              // Did the snake hit the wall
+static bool _IsKilledBySelf(const struct Node *pHead, const struct Snake *pSnake);                         // Did the snake hit itself
+static bool _IsSnakeAlive(const struct Game *pGame, enum ExitStatus *exitStatus);                          // Does the snake survive
+static void _HandleDirective(struct Game *pGame);                                                          // Processing direction instruction
+static void _DisplaySnake(const struct UI *pUI, const struct Snake *pSnake);                               // Display complete snakes
+static void _Pause();                                                                                      // Pause
 
 
 struct Game * CreateGame()
 {
 	struct Game *pGame = (struct Game *)malloc(sizeof(struct Game));
-	// TODO: 异常处理
+	// TODO: exception handling
 	pGame->width = 28;
 	pGame->height = 27;
 	pGame->score = 0;
@@ -92,9 +77,9 @@ void StartGame(struct Game *pGame)
 	}
 
 	char *messages[3];
-	messages[QUIT] = "游戏结束";
-	messages[KILLED_BY_WALL] = "游戏结束，撞到墙了";
-	messages[KILLED_BY_SELF] = "游戏结束，撞到自己了";
+	messages[QUIT] = "Game Over";
+	messages[KILLED_BY_WALL] = "Game Over，hit the wall";
+	messages[KILLED_BY_SELF] = "Game Over，hit yourself";
 	UIShowMessage(pUI, messages[exitStatus]);
 
 	UIDeinitialize(pUI);
@@ -220,7 +205,6 @@ static void _RemoveTail(struct Snake *pSnake, const struct UI *pUI)
 {
 	struct Node *pNode = pSnake->pBody;
 
-	// 基于什么前提？
 	while (pNode->pNext->pNext != NULL) {
 		pNode = pNode->pNext;
 	}
@@ -254,7 +238,6 @@ static bool _IsKilledBySelf(const struct Node *pHead, const struct Snake *pSnake
 {
 	struct Node *pNode;
 
-	// 基于什么前提么？
 	for (pNode = pSnake->pBody->pNext; pNode != NULL; pNode = pNode->pNext) {
 		if (pHead->position.x == pNode->position.x && pHead->position.y == pNode->position.y) {
 			return true;

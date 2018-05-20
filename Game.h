@@ -3,11 +3,8 @@
 
 #include "Snake.h"
 
-// 创建并初始化游戏
-struct Game * CreateGame();
-// 开始游戏
-void StartGame(struct Game *pGame);
-// 销毁游戏资源
-void DestroyGame(struct Game *pGame);
+struct Game * CreateGame();             // Create and initialize the game
+void StartGame(struct Game *pGame);     // Start the game
+void DestroyGame(struct Game *pGame);   // Destruction of game resources
 
 #endif

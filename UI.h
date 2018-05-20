@@ -3,42 +3,33 @@
 
 
 struct UI {
-	// 边缘宽度
+	// Edge Width
 	int marginTop;
 	int marginLeft;
 
-	// 游戏区域的个数
+	// Number of game areas
 	int gameWidth;
 	int gameHeight;
 
-	// 整个窗口大小宽度
+	// Full window size width
 	int windowWidth;
 	int windowHeight;
 
-	char *snakeBlock;	// 蛇的显示块
-	char *wallBlock;	// 墙的显示块
-	char *foodBlock;	// 食物的显示块
-	int blockWidth;		// 每个块的宽度，注意，上面几个块的宽度要相等，否则就对不齐了
+	char *snakeBlock;	// Snake
+	char *wallBlock;	// Wall
+	char *foodBlock;	// Food
+	int blockWidth;		// Each block should to be equal
 };
 
-// UI 初始化
-struct UI * UIInitialize(int width, int height);
+struct UI * UIInitialize(int width, int height);                             // UI Initialize
+void UIDisplayWizard(const struct UI *pUI);                                  // Display the game wizard
+void UIDisplayGameWindow(const struct UI *pUI, int score, int scorePerFood); // Displays the game as a whole, including the wall, the information on the right
+void UIDisplayFoodAtXY(const struct UI *pUI, int x, int y);                  // Show food at X,Y
+void UIDisplaySnakeBlockAtXY(const struct UI *pUI, int x, int y);            // Display a node of a snake at X,Y
+void UICleanBlockAtXY(const struct UI *pUI, int x, int y);                   // Clear out the display block at x, y
+void UIDisplayScore(const struct UI *pUI, int score, int scorePerFood);      // Display score information
+void UIShowMessage(const struct UI *pUI, const char *message);               // Display the game exit message in the middle
+void UIDeinitialize(struct UI *pUI);                                         // Destroy UI resources
 
-// 显示游戏向导
-void UIDisplayWizard(const struct UI *pUI);
-// 显示游戏整体，包括墙、右边的信息
-void UIDisplayGameWindow(const struct UI *pUI, int score, int scorePerFood);
-// 在x，y处显示食物
-void UIDisplayFoodAtXY(const struct UI *pUI, int x, int y);
-// 在x，y处显示蛇的一个结点
-void UIDisplaySnakeBlockAtXY(const struct UI *pUI, int x, int y);
-// 清空x，y处的显示块
-void UICleanBlockAtXY(const struct UI *pUI, int x, int y);
-// 显示分数信息
-void UIDisplayScore(const struct UI *pUI, int score, int scorePerFood);
-// 在中间显示游戏退出消息
-void UIShowMessage(const struct UI *pUI, const char *message);
-// 销毁 UI 资源
-void UIDeinitialize(struct UI *pUI);
 
 #endif
